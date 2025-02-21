@@ -54,7 +54,7 @@ public class Scripts : MonoBehaviour
 
     void Atack()
     {
-        if(Input.GetKeyDown(KeyCode.X))
+        if(Input.GetKeyDown(KeyCode.L))
         {
             Debug.Log("Ataque");
         }
@@ -65,6 +65,10 @@ public class Scripts : MonoBehaviour
         if (collision.gameObject.tag == "Ground")
         {
             jumping = false;
+        }
+        if (collision.gameObject.tag == "Danger")
+        {
+            Destroy(gameObject);
         }
     }
     private void OnCollisionExit2D(Collision2D collision)

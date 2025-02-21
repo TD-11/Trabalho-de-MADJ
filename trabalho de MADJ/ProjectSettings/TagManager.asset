@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Espinho
   - Ground
+  - Danger
   layers:
   - Default
   - TransparentFX
