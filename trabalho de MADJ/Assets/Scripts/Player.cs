@@ -5,14 +5,18 @@ using UnityEngine;
 public class Scripts : MonoBehaviour
 {
    private Rigidbody2D rig;
+   private Animator anim;
 
-   public float velocity;
+   private float velocity = 5f;
    public float forceJump;
    private bool jumping;
+   private bool attacking;
+   private bool grounded;
     // Start is called before the first frame update
     void Start()
     {
         rig = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -56,7 +60,14 @@ public class Scripts : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.L))
         {
-            Debug.Log("Ataque");
+            if (!attacking)
+            {
+                anim.SetBool("Attacking", true);
+            }
+            if(!attacking && grounded == true)
+            {
+                velocity = 0f;
+            }
         }
     }
 
@@ -65,6 +76,7 @@ public class Scripts : MonoBehaviour
         if (collision.gameObject.tag == "Ground")
         {
             jumping = false;
+            grounded = true;
         }
         if (collision.gameObject.tag == "Danger")
         {
@@ -76,6 +88,14 @@ public class Scripts : MonoBehaviour
         if (collision.gameObject.tag == "Ground")
         {
             jumping = true;
+            grounded = false;
         }
+    }
+
+    void EndingAnimation()
+    {
+        anim.SetBool("Attacking", false);
+        velocity = 5f;
+        attacking = false;
     }
 }
